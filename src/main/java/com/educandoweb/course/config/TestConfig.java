@@ -8,24 +8,34 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.educandoweb.course.entities.Category;
 import com.educandoweb.course.entities.Order;
 import com.educandoweb.course.entities.User;
 import com.educandoweb.course.entities.enums.OrderStatus;
+import com.educandoweb.course.repositories.CategoryRepository;
 import com.educandoweb.course.repositories.OrderRepository;
 import com.educandoweb.course.repositories.UserRepository;
 
 @Configuration
 @Profile("test")
-public class TextConfig implements CommandLineRunner {
+public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private UserRepository userRepository;
-	
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+		Category cat1, cat2, cat3;
+		
+		cat1 = new Category(null, "Electronics");
+		cat2 = new Category(null, "Books");
+		cat3 = new Category(null, "Computers");
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
 		User u1, u2;
 		Order o1, o2, o3;
 		
