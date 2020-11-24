@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -83,6 +84,12 @@ public class Order implements Serializable {
 	}
 	public Set<OrderItem> getItems() {
 		return items;
+	}
+	
+	public Double getTotal() {			
+		return items.stream().map(item -> item.getSubTotal())
+				.collect(Collectors.toSet())
+				.stream().reduce(0.00, Double::sum);
 	}
 	
 	@Override
